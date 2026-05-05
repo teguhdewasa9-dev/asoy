@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For You </title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ff9a9e, #fecfef);
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      transition: all 0.8s ease;
+      opacity: 0;
+      transform: scale(0.9);
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 1;
+    }
+
+    h2, h1 {
+      color: black;
+      text-shadow: none;
+      font-size: clamp(18px, 4vw, 28px);
+    }
+
+    img {
+      width: clamp(150px, 30vw, 250px);
+      margin: 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    button {
+      padding: 12px 25px;
+      margin: 10px;
+      font-size: clamp(14px, 3vw, 16px);
+      cursor: pointer;
+      border: none;
+      border-radius: 30px;
+      background: white;
+      color: #ff4d6d;
+      font-weight: bold;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background: #ffe6ea;
+    }
+
+    #noBtn {
+      position: absolute;
+    }
+
+    .bg-heart {
+      position: absolute;
+      color: rgba(255,255,255,0.5);
+      font-size: 20px;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh);
+        opacity: 0;
+      }
+    }
+
+    .heart {
+      position: absolute;
+      color: red;
+      font-size: 24px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10%);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<audio id="music" src="musrik.mp3"></audio>
+
+<!-- SLIDE 1 -->
+<div id="slide1" class="slide active">
+    <h2>hay kack kesa, aku mw gx jadi pasyal km? MWWW</h2>
+    <h2>EHH,yg bener yg enih ni</h2>
+  <h2>may i be your boyfriend?</h2>
+  <img src="ucing.jpg">
+  <div>
+    <button onclick="goToSlide2()">OPKORS (yginiplis)</button>
+    <button id="noBtn">NO </button>
+  </div>
+</div>
+
+<!-- SLIDE 2 -->
+<div id="slide2" class="slide">
+  <h1>YEEAYY!! </h1>
+  <h1>reaksi teguh jefferson frank chandra wibowo baskara putra lionel messi danendra:</h1>
+  <img src="happy.jpg">
+  <p style="color:black;">udah tw si pasti pilih enih YAKINNN</p>
+  <h1>MAKASII YAA</h1>
+</div>
+
+<script>
+  const noBtn = document.getElementById("noBtn");
+  const music = document.getElementById("music");
+
+  // NO KABUR
+  noBtn.addEventListener("click", () => {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  });
+
+  // TRANSISI + MUSIC + HEART
+  function goToSlide2() {
+    document.getElementById("slide1").classList.remove("active");
+    document.getElementById("slide2").classList.add("active");
+
+    music.play();
+    startHearts();
+  }
+
+  // HEART JATUH
+  function startHearts() {
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤️";
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 5000);
+    }, 200);
+  }
+
+  // BACKGROUND LOVE FLOAT
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("bg-heart");
+    heart.innerHTML = "💖";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 10000);
+  }, 300);
+</script>
+
+</body>
+</html>
